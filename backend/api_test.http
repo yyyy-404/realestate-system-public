@@ -1,0 +1,101 @@
+@baseUrl = http://127.0.0.1:5000
+@contentType = application/json
+
+###
+# 注册用户
+POST {{baseUrl}}/api/auth/register
+Content-Type: {{contentType}}
+
+{
+  "username": "seller1",
+  "password": "123456",
+  "role": "owner"
+}
+
+###
+# 注册买家
+POST {{baseUrl}}/api/auth/register
+Content-Type: {{contentType}}
+
+{
+  "username": "buyer1",
+  "password": "123456",
+  "role": "tenant"
+}
+
+###
+# 登录 seller
+# @name loginSeller
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "seller1",
+  "password": "123456"
+}
+
+###
+@token = {{loginSeller.response.body.access_token}}
+
+###
+# 创建房源
+POST {{baseUrl}}/api/property/
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Tokyo Apartment",
+  "description": "Near station",
+  "price": 120000,
+  "location": "Tokyo"
+}
+
+###
+# 查询房源
+GET {{baseUrl}}/api/property/
+
+###
+# 房源详情
+GET {{baseUrl}}/api/property/1
+
+###
+# 登录 buyer
+# @name loginBuyer
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "username": "buyer1",
+  "password": "123456"
+}
+
+###
+@buyerToken = {{loginBuyer.response.body.access_token}}
+
+###
+# 创建合同
+POST {{baseUrl}}/api/contract/
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "property_id": 1,
+  "buyer_id": 2,
+  "price": 1200000
+}
+
+###
+# 查看合同
+GET {{baseUrl}}/api/contract/
+Authorization: Bearer {{token}}
+
+###
+# 完成合同
+PUT {{baseUrl}}/api/contract/1/complete
+Authorization: Bearer {{token}}
+
+###
+# 房源统计
+GET {{baseUrl}}/api/property/stats
+
+###

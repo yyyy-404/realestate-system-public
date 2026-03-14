@@ -3,10 +3,11 @@ import os
 
 class Config:
 
+    # Docker Flask 访问本机 MySQL
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
         "mysql+pymysql://root:123456@host.docker.internal:3306/realestate"
-    )# 如果用Docker，DATABASE_URL改成：mysql+pymysql://root:123456@db:3306/realestate
+    )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

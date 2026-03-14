@@ -7,10 +7,8 @@ def create_app():
 
     app = Flask(__name__)
 
-    # 加载配置
     app.config.from_object(Config)
 
-    # 初始化插件
     db.init_app(app)
     jwt.init_app(app)
     cors.init_app(app)
@@ -32,7 +30,7 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(stats_bp)
 
-    # 自动创建数据库表
+    # 自动创建表
     with app.app_context():
         db.create_all()
 

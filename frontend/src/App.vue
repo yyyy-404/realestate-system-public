@@ -1,14 +1,14 @@
+<!-- src/App.vue -->
 <template>
-  <div>
-    <nav>
-      <router-link to="/">首页</router-link> |
-      <router-link to="/properties">房源</router-link> |
-      <router-link to="/favorites">收藏</router-link> |
-      <router-link to="/contracts">合同</router-link> |
-      <router-link to="/dashboard">统计</router-link> |
-      <router-link to="/login">登录</router-link>
-    </nav>
-
+  <div id="app">
     <router-view />
   </div>
 </template>
+
+<script setup>
+</script>
+
+<style>
+/* 全局简单样式 */
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; }
+</style>

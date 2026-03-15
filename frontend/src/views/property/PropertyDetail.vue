@@ -1,24 +1,34 @@
+<!-- src/views/property/PropertyDetail.vue -->
 <template>
-  <div v-if="property">
-    <h2>{{ property.title }}</h2>
-    <p>价格：{{ property.price }}</p>
-    <p>{{ property.description }}</p>
+  <div v-if="p">
+    <h2>{{ p.title }}</h2>
+    <p>价格: {{ p.price }}</p>
+    <p>描述: {{ p.description }}</p>
+    <button @click="fav">收藏</button>
   </div>
 </template>
 
-<script>
-import axios from "axios"
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { getProperty } from "../../api/property";
+import { addFavorite } from "../../api/favorite";
 
-export default {
-  data() {
-    return { property: null }
-  },
-  async mounted() {
-    const id = this.$route.params.id
-    const res = await axios.get(
-      `http://127.0.0.1:5000/api/property/${id}`
-    )
-    this.property = res.data
+const route = useRoute();
+const p = ref(null);
+
+onMounted(async () => {
+  const id = route.params.id;
+  const res = await getProperty(id);
+  p.value = res.data;
+});
+
+async function fav() {
+  try {
+    await addFavorite(p.value.id);
+    alert("收藏成功");
+  } catch (err) {
+    alert("收藏失败");
   }
 }
 </script>

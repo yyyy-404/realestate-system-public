@@ -1,36 +1,31 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import Login from "../views/Login.vue"
-import PropertyList from "../views/PropertyList.vue"
-import PropertyDetail from "../views/PropertyDetail.vue"
-import PublishProperty from "../views/PublishProperty.vue"
-import FavoriteList from "../views/FavoriteList.vue"
-import ContractList from "../views/ContractList.vue"
-import Dashboard from "../views/Dashboard.vue"
+import Login from "../views/auth/Login.vue"
+import Home from "../views/Home.vue"
 
-// Router
+import PropertyList from "../views/property/PropertyList.vue"
+import PropertyDetail from "../views/property/PropertyDetail.vue"
+import PropertyCreate from "../views/property/PropertyCreate.vue"
+
+import FavoriteList from "../views/favorite/FavoriteList.vue"
+import ContractList from "../views/contract/ContractList.vue"
+import Dashboard from "../views/stats/Dashboard.vue"
 
 const routes = [
-
+  { path: "/", component: Home },
   { path: "/login", component: Login },
 
-  { path: "/", component: PropertyList },
-
-  { path: "/property/:id", component: PropertyDetail },
-
-  { path: "/publish", component: PublishProperty },
+  { path: "/properties", component: PropertyList },
+  { path: "/properties/:id", component: PropertyDetail },
+  { path: "/create-property", component: PropertyCreate },
 
   { path: "/favorites", component: FavoriteList },
-
   { path: "/contracts", component: ContractList },
 
-  { path: "/dashboard", component: Dashboard }
-
+  { path: "/dashboard", component: Dashboard },
 ]
 
-const router = createRouter({
+export default createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
-
-export default router

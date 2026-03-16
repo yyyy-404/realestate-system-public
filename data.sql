@@ -1,128 +1,92 @@
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
---
--- Host: 127.0.0.1    Database: realestate
--- ------------------------------------------------------
--- Server version	8.0.44
+create database realestate
+use realestate
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `contracts`
---
+create table users
+(
+    id       int auto_increment
+        primary key,
+    username varchar(50)  not null,
+    password varchar(255) not null,
+    role     varchar(20)  null,
+    constraint username
+        unique (username)
+);
 
-DROP TABLE IF EXISTS `contracts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `contracts` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `property_id` int NOT NULL,
-  `seller_id` int NOT NULL,
-  `buyer_id` int NOT NULL,
-  `price` float NOT NULL,
-  `status` enum('pending','completed','cancelled') DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `property_id` (`property_id`),
-  KEY `seller_id` (`seller_id`),
-  KEY `buyer_id` (`buyer_id`),
-  CONSTRAINT `contracts_ibfk_1` FOREIGN KEY (`property_id`) REFERENCES `properties` (`id`),
-  CONSTRAINT `contracts_ibfk_2` FOREIGN KEY (`seller_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `contracts_ibfk_3` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+create table properties
+(
+    id          int auto_increment
+        primary key,
+    title       varchar(100)               not null,
+    description text                       null,
+    price       float                      not null,
+    location    varchar(200)               null,
+    status      enum ('available', 'sold') not null,
+    owner_id    int                        not null,
+    created_at  datetime                   null,
+    constraint properties_ibfk_1
+        foreign key (owner_id) references users (id)
+);
 
---
--- Table structure for table `favorites`
---
+create table contracts
+(
+    id          int auto_increment
+        primary key,
+    property_id int                                        not null,
+    seller_id   int                                        not null,
+    buyer_id    int                                        not null,
+    price       float                                      not null,
+    status      enum ('pending', 'completed', 'cancelled') null,
+    created_at  datetime                                   null,
+    constraint contracts_ibfk_1
+        foreign key (property_id) references properties (id),
+    constraint contracts_ibfk_2
+        foreign key (seller_id) references users (id),
+    constraint contracts_ibfk_3
+        foreign key (buyer_id) references users (id)
+);
 
-DROP TABLE IF EXISTS `favorites`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `favorites` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `property_id` int NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `property_id` (`property_id`),
-  CONSTRAINT `favorites_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `favorites_ibfk_2` FOREIGN KEY (`property_id`) REFERENCES `properties` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+create index buyer_id
+    on contracts (buyer_id);
 
---
--- Table structure for table `properties`
---
+create index property_id
+    on contracts (property_id);
 
-DROP TABLE IF EXISTS `properties`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `properties` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `description` text,
-  `price` float NOT NULL,
-  `location` varchar(200) DEFAULT NULL,
-  `status` enum('available','sold') NOT NULL,
-  `owner_id` int NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `owner_id` (`owner_id`),
-  CONSTRAINT `properties_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+create index seller_id
+    on contracts (seller_id);
 
---
--- Table structure for table `property_images`
---
+create table favorites
+(
+    id          int auto_increment
+        primary key,
+    user_id     int      not null,
+    property_id int      not null,
+    created_at  datetime null,
+    constraint favorites_ibfk_1
+        foreign key (user_id) references users (id),
+    constraint favorites_ibfk_2
+        foreign key (property_id) references properties (id)
+);
 
-DROP TABLE IF EXISTS `property_images`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `property_images` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `property_id` int NOT NULL,
-  `image_url` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `property_id` (`property_id`),
-  CONSTRAINT `property_images_ibfk_1` FOREIGN KEY (`property_id`) REFERENCES `properties` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+create index property_id
+    on favorites (property_id);
 
---
--- Table structure for table `users`
---
+create index user_id
+    on favorites (user_id);
 
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+create index owner_id
+    on properties (owner_id);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+create table property_images
+(
+    id          int auto_increment
+        primary key,
+    property_id int          not null,
+    image_url   varchar(255) not null,
+    constraint property_images_ibfk_1
+        foreign key (property_id) references properties (id)
+);
 
--- Dump completed on 2026-03-16 10:51:56
+create index property_id
+    on property_images (property_id);
+

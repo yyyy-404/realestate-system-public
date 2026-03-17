@@ -33,7 +33,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { register } from "@/api/auth";
+import request from "@/api/request"; // or import { register } from "@/api/auth" if you have that module
 
 const router = useRouter();
 const username = ref("");
@@ -58,14 +58,15 @@ const handleRegister = async () => {
 
   loading.value = true;
   try {
-    await register({
+    // 如果你有 src/api/auth.js 的 register 方法，改成： await register({ ... })
+    await request.post("/auth/register", {
       username: username.value,
       password: password.value,
       role: role.value,
     });
 
     success.value = "注册成功，正在跳转到登录...";
-    setTimeout(() => router.push("/login"), 800);
+    setTimeout(() => router.push("/login"), 700);
   } catch (err) {
     error.value =
       err?.response?.data?.message || err?.message || "注册失败，请重试";
@@ -80,62 +81,14 @@ const goLogin = () => {
 </script>
 
 <style scoped>
-.auth-page {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f3f6fa;
-}
-.auth-card {
-  width: 420px;
-  background: #fff;
-  padding: 36px;
-  border-radius: 10px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-.auth-card input[type="text"],
-.auth-card input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
-.role-row {
-  display: flex;
-  justify-content: space-around;
-  margin: 8px 0 14px 0;
-  font-size: 14px;
-}
-.auth-card button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 6px;
-  background: #409eff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.switch {
-  margin-top: 12px;
-}
-.switch span {
-  color: #409eff;
-  cursor: pointer;
-}
-.error {
-  color: #d9534f;
-  margin-top: 8px;
-}
-.success {
-  color: #28a745;
-  margin-top: 8px;
-}
-.subtitle {
-  color: #6b7280;
-  margin-bottom: 14px;
-}
+.auth-page { height: 100vh; display:flex; align-items:center; justify-content:center; background:#f3f6fa; }
+.auth-card { width:420px; background:#fff; padding:36px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.08); text-align:center; }
+.auth-card input { width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ddd; }
+.role-row { display:flex; justify-content:space-around; margin:8px 0 14px 0; font-size:14px; }
+.auth-card button { width:100%; padding:10px; margin-top:10px; border-radius:6px; background:#409eff; color:white; border:none; cursor:pointer; }
+.switch { margin-top:12px; }
+.switch span { color:#409eff; cursor:pointer; }
+.error { color:#d9534f; margin-top:8px; }
+.success { color:#28a745; margin-top:8px; }
+.subtitle { color:#6b7280; margin-bottom:14px; }
 </style>

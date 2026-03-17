@@ -3,6 +3,7 @@
   <header class="navbar">
     <div class="left">
       <button class="menu-btn" @click="goHome">主页</button>
+      <button @click="logout">退出</button>
     </div>
     <div class="right">
       <span class="user">您好，{{ username || "访客" }}</span>
@@ -28,6 +29,12 @@ function handleLogout() {
   user.logout();
   router.push("/login");
 }
+
+
+</script>
+
+<script setup>
+
 </script>
 
 <style scoped>

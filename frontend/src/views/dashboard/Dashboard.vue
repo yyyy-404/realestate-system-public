@@ -1,42 +1,35 @@
-<!-- src/views/dashboard/Dashboard.vue -->
+<!-- frontend/src/views/dashboard/Dashboard.vue -->
 <template>
   <div>
     <h2>仪表盘</h2>
-    <div style="display:flex;gap:20px">
-      <div style="flex:1">
-        <div ref="chart" style="height:360px"></div>
-      </div>
-      <div style="width:300px">
-        <p>总房源: {{ stats.total_properties }}</p>
-        <p>总合同: {{ stats.total_contracts }}</p>
-        <p>总用户: {{ stats.total_users }}</p>
-      </div>
+    <div class="cards">
+      <div class="card">房源总数<br /><strong>-</strong></div>
+      <div class="card">收藏数<br /><strong>-</strong></div>
+      <div class="card">合同数<br /><strong>-</strong></div>
     </div>
+    <p class="hint">提示：这些数据可由后端接口 `/property` `/favorite` `/contract` 提供，我可以继续对接。</p>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import * as echarts from "echarts";
-import { getStats } from "../../api/stats";
-
-const chart = ref(null);
-const stats = ref({ total_properties: 0, total_contracts: 0, total_users: 0 });
-
-onMounted(async () => {
-  try {
-    const res = await getStats();
-    stats.value = res.data;
-    const myChart = echarts.init(chart.value);
-    myChart.setOption({
-      title: { text: "系统统计" },
-      tooltip: {},
-      xAxis: { type: "category", data: ["房源", "合同", "用户"] },
-      yAxis: { type: "value" },
-      series: [{ type: "bar", data: [stats.value.total_properties, stats.value.total_contracts, stats.value.total_users] }],
-    });
-  } catch (err) {
-    console.error(err);
-  }
-});
 </script>
+
+<style scoped>
+.cards {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+.card {
+  flex: 1;
+  background: white;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  text-align: center;
+}
+.hint {
+  margin-top: 16px;
+  color: #6b7280;
+}
+</style>

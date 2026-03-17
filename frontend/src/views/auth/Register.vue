@@ -1,4 +1,4 @@
-<!-- src/views/auth/Register.vue -->
+<!-- frontend/src/views/auth/Register.vue -->
 <template>
   <div class="auth-page">
     <div class="auth-card">
@@ -10,15 +10,9 @@
       <input v-model="confirm" type="password" placeholder="确认密码" />
 
       <div class="role-row">
-        <label>
-          <input type="radio" value="buyer" v-model="role" /> 买家
-        </label>
-        <label>
-          <input type="radio" value="seller" v-model="role" /> 卖家
-        </label>
-        <label>
-          <input type="radio" value="admin" v-model="role" /> 管理员
-        </label>
+        <label><input type="radio" value="buyer" v-model="role" /> 买家</label>
+        <label><input type="radio" value="seller" v-model="role" /> 卖家</label>
+        <label><input type="radio" value="admin" v-model="role" /> 管理员</label>
       </div>
 
       <button :disabled="loading" @click="handleRegister">
@@ -39,13 +33,13 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { register } from "../../api/auth";
+import { register } from "@/api/auth";
 
 const router = useRouter();
 const username = ref("");
 const password = ref("");
 const confirm = ref("");
-const role = ref("buyer"); // 默认 buyer
+const role = ref("buyer");
 const loading = ref(false);
 const error = ref("");
 const success = ref("");

@@ -1,14 +1,11 @@
-<!-- src/App.vue -->
+<!-- frontend/src/App.vue -->
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script setup>
 </script>
 
 <style>
-/* 全局简单样式 */
-body { margin: 0; font-family: Arial, Helvetica, sans-serif; }
+/* 全局样式可以放在 src/style.css（你项目已有） */
 </style>

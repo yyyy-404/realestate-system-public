@@ -1,8 +1,7 @@
-<!-- src/views/auth/Login.vue -->
+<!-- frontend/src/views/auth/Login.vue -->
 <template>
   <div class="auth-page">
     <div class="auth-card">
-      <img v-if="logo" :src="logo" class="logo" alt="logo" />
       <h1>房产管理系统</h1>
       <p class="subtitle">管理后台 — 登录</p>
 
@@ -27,13 +26,15 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { login } from "@/api/auth";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 const username = ref("");
 const password = ref("");
 const loading = ref(false);
 const error = ref("");
-const logo = "/logo.png"; // 若项目根目录有 logo.png，可显示；没有可删除
+
+const user = useUserStore();
 
 const handleLogin = async () => {
   error.value = "";
@@ -48,14 +49,12 @@ const handleLogin = async () => {
       password: password.value,
     });
 
-    // 按你确认的后端返回：token 在根节点 access_token
+    // 按你后端规范：token 在根节点 access_token
     const token = res?.data?.access_token;
-    if (!token) {
-      throw new Error("登录失败：未收到 access_token");
-    }
+    if (!token) throw new Error("登录失败：未收到 access_token");
 
-    localStorage.setItem("access_token", token);
-    // 登录成功，跳转首页（Dashboard）
+    user.setToken(token);
+
     router.push("/");
   } catch (err) {
     error.value =
@@ -85,10 +84,6 @@ const goRegister = () => {
   border-radius: 10px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   text-align: center;
-}
-.logo {
-  width: 72px;
-  margin-bottom: 8px;
 }
 .auth-card input {
   width: 100%;

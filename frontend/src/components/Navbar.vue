@@ -1,33 +1,64 @@
-<!-- src/components/Navbar.vue -->
+<!-- frontend/src/components/Navbar.vue -->
 <template>
-  <div class="navbar">
-    <div>二手房交易管理系统</div>
-    <div>
-      <button @click="logout">退出</button>
+  <header class="navbar">
+    <div class="left">
+      <button class="menu-btn" @click="goHome">主页</button>
     </div>
-  </div>
+    <div class="right">
+      <span class="user">您好，{{ username || "访客" }}</span>
+      <button class="logout" @click="handleLogout">登出</button>
+    </div>
+  </header>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
-import { useAuthStore } from "../stores/auth";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
-const auth = useAuthStore();
+const user = useUserStore();
+user.loadFromToken();
+const username = user.username;
 
-function logout() {
-  auth.clear();
+function goHome() {
+  router.push("/");
+}
+
+function handleLogout() {
+  user.logout();
   router.push("/login");
 }
 </script>
 
 <style scoped>
 .navbar {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 20px;
-  border-bottom:1px solid #eee;
-  background:#fff;
+  height: 64px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid #eef2f6;
+}
+.menu-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.right {
+  display: flex;
+  align-items: center;
+}
+.user {
+  margin-right: 12px;
+  color: #333;
+}
+.logout {
+  background: #ff6b6b;
+  color: white;
+  border: 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 </style>

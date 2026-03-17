@@ -1,7 +1,6 @@
-// src/api/request.js
+// frontend/src/api/request.js
 import axios from "axios";
 
-// 后端基础地址（按你确认的）
 const baseURL = "http://127.0.0.1:5000/api";
 
 const service = axios.create({
@@ -24,19 +23,15 @@ service.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 响应拦截：统一处理 401（未授权）和常见错误提示
+// 响应拦截：统一处理 401（未授权）
 service.interceptors.response.use(
-  (response) => {
-    // 直接返回 axios response（上层按 res.data 使用）
-    return response;
-  },
+  (response) => response,
   (error) => {
     const resp = error?.response;
     if (resp) {
       if (resp.status === 401) {
-        // token 过期或未授权：清除 token 并跳到登录页
         localStorage.removeItem("access_token");
-        // 强制刷新到登录页（避免循环依赖 router）
+        // 强制跳转登录（避免循环依赖 router）
         window.location.href = "/login";
       }
     }

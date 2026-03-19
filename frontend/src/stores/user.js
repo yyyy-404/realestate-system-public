@@ -1,60 +1,43 @@
-// frontend/src/stores/user.js
 import { defineStore } from "pinia";
 
-/**
- * 因后端没有 /auth/me，我们从 JWT payload 解出用户信息（若后端以后提供 /me，可替换为请求）
- */
-
-function decodeJwtPayload(token) {
-  try {
-    const parts = token.split(".");
-    if (parts.length !== 3) return null;
-    // base64url -> base64
-    const payload = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-    const json = decodeURIComponent(
-      atob(payload)
-        .split("")
-        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-        .join("")
-    );
-    return JSON.parse(json);
-  } catch (e) {
-    return null;
-  }
-}
+const TOKEN_KEY = "access_token";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
-    token: localStorage.getItem("access_token") || null,
-    username: null,
-    role: null,
+    token: "",
+    username: "",
+    role: "",
   }),
+
   actions: {
-    loadFromToken() {
-      const token = localStorage.getItem("access_token");
+    // 登录后调用
+    setUser(token) {
       this.token = token;
-      if (token) {
-        const payload = decodeJwtPayload(token);
-        if (payload) {
-          // 依据后端 JWT 载荷字段命名自行调整，如 payload.username / payload.sub / payload.role
-          this.username = payload.username || payload.sub || null;
-          this.role = payload.role || null;
-        }
-      } else {
-        this.username = null;
-        this.role = null;
+      localStorage.setItem(TOKEN_KEY, token);
+
+      // ⚠️ 简单解析 JWT（不验签，仅取 payload）
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        this.username = payload.username || "";
+        this.role = payload.role || "";
+      } catch (e) {
+        console.warn("token解析失败");
       }
     },
-    setToken(token) {
-      this.token = token;
-      localStorage.setItem("access_token", token);
-      this.loadFromToken();
+
+    // 启动时恢复
+    loadFromToken() {
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        this.setUser(token);
+      }
     },
+
     logout() {
-      this.token = null;
-      this.username = null;
-      this.role = null;
-      localStorage.removeItem("access_token");
+      this.token = "";
+      this.username = "";
+      this.role = "";
+      localStorage.removeItem(TOKEN_KEY);
     },
   },
 });

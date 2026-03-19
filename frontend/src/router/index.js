@@ -17,6 +17,7 @@ const routes = [
   {
     path: "/",
     component: MainLayout,
+    meta: { requiresAuth: true },
     children: [
       { path: "", component: Dashboard },
       { path: "properties", component: PropertyList },
@@ -24,31 +25,42 @@ const routes = [
       { path: "create-property", component: PropertyCreate },
       { path: "favorites", component: FavoriteList },
       { path: "contracts", component: ContractList },
-      { path: "admin", component: AdminPanel },
+      {
+        path: "admin",
+        component: AdminPanel,
+        meta: { roles: ["admin"] },
+      },
     ],
   },
-  { path: "/login", component: Login },
-  { path: "/register", component: Register },
+  {
+    path: "/login",
+    component: Login,
+    meta: { public: true },
+  },
+  {
+    path: "/register",
+    component: Register,
+    meta: { public: true },
+  },
 ];
 
+// ⭐ 必须有这一段
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
 
-// 全局守卫：未登录禁止访问受保护页；已登录禁止访问登录/注册页
+// ⭐ 守卫
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem("access_token");
 
   const openPaths = ["/login", "/register"];
 
-  // 受保护页面（除 login/register 之外）需要 token
-  if (!openPaths.includes(to.path) && !token) {
+  if (!token && !openPaths.includes(to.path)) {
     next("/login");
     return;
   }
 
-  // 已登录用户访问登录/注册页 => 重定向到首页
   if (token && openPaths.includes(to.path)) {
     next("/");
     return;

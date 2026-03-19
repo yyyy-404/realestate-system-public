@@ -1,41 +1,31 @@
-// frontend/src/api/request.js
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:5000/api";
-
 const service = axios.create({
-  baseURL,
-  timeout: 15000,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: import.meta.env.VITE_API_BASE,
+  timeout: 10000,
 });
 
-// 请求拦截：自动加 Authorization（若有 token）
-service.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+service.interceptors.request.use((config) => {
+  const token = localStorage.getItem("access_token");
 
-// 响应拦截：统一处理 401（未授权）
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
 service.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    const resp = error?.response;
-    if (resp) {
-      if (resp.status === 401) {
-        localStorage.removeItem("access_token");
-        // 强制跳转登录（避免循环依赖 router）
-        window.location.href = "/login";
-      }
+  (res) => res.data,
+  (err) => {
+    const status = err.response?.status;
+
+    if (status === 401) {
+      localStorage.removeItem("access_token");
+      window.location.href = "/login";
     }
-    return Promise.reject(error);
+
+    return Promise.reject(err);
   }
 );
 

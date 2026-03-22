@@ -52,6 +52,11 @@
 
 body {
   margin: 0;
+  font-family:
+    'Noto Sans SC',
+    'PingFang SC',
+    'Microsoft YaHei',
+    sans-serif;
 }
 
 h1,

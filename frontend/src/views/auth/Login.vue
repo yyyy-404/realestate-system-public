@@ -1,36 +1,54 @@
 <!-- frontend/src/views/auth/Login.vue -->
 <template>
-  <div class="auth-page">
-    <div class="auth-card">
-      <h1>房产管理系统</h1>
-      <p class="subtitle">管理后台 — 登录</p>
+  <div class="page">
 
-      <input v-model="username" placeholder="用户名" />
-      <input v-model="password" type="password" placeholder="密码" />
+    <div class="panel">
+      <h2>二手房交易系统</h2>
+      <h2>LOGIN</h2>
 
-      <button :disabled="loading" @click="handleLogin">
-        {{ loading ? "登录中..." : "登录" }}
-      </button>
+      <form @submit.prevent="handleLogin" class="form">
 
-      <p class="switch">
-        没有帐号？
-        <span @click="goRegister">立即注册</span>
-      </p>
+        <input
+          v-model="form.username"
+          type="text"
+          placeholder="Username"
+        />
+
+        <input
+          v-model="form.password"
+          type="password"
+          placeholder="Password"
+        />
+
+        <button class="btn" :disabled="loading">
+          {{ loading ? "登录中..." : "登录" }}
+        </button>
+
+      </form>
+
+      <div class="hint">
+        <router-link to="/register">注册账号</router-link>
+      </div>
 
       <p v-if="error" class="error">{{ error }}</p>
     </div>
+
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
+
+const form = reactive({
+  username: "",
+  password: "",
+});
+
 import { useRouter } from "vue-router";
 import { login } from "@/api/auth";
 import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
-const username = ref("");
-const password = ref("");
 const loading = ref(false);
 const error = ref("");
 
@@ -38,22 +56,22 @@ const user = useUserStore();
 
 const handleLogin = async () => {
   error.value = "";
-  if (!username.value || !password.value) {
-    error.value = "用户名和密码不能为空";
-    return;
-  }
+  if (!form.username || !form.password) {
+  error.value = "用户名和密码不能为空";
+  return;
+    }
   loading.value = true;
   try {
     const res = await login({
-      username: username.value,
-      password: password.value,
-    });
+    username: form.username,
+    password: form.password,
+      });
 
     // 按你后端规范：token 在根节点 access_token
     const token = res?.data?.access_token;
     if (!token) throw new Error("登录失败：未收到 access_token");
 
-    user.setToken(token);
+    user.setUser(token);
 
     router.push("/");
   } catch (err) {
@@ -70,51 +88,127 @@ const goRegister = () => {
 </script>
 
 <style scoped>
-.auth-page {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f3f6fa;
+:root {
+  --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
 }
-.auth-card {
-  width: 380px;
-  background: #fff;
-  padding: 36px;
-  border-radius: 10px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.4), transparent),
+    linear-gradient(135deg, #f4f1e6, #e8e2d2);
+}
+
+.panel {
+  padding: 50px;
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.5);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.08),
+    inset 0 0 20px rgba(255,255,255,0.4);
+
+  width: 320px;
   text-align: center;
 }
-.auth-card input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
-  border: 1px solid #ddd;
+
+h2 {
+  font-weight: 300;
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+  color: #4a3728;
 }
-.auth-card button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 6px;
-  background: #409eff;
-  color: white;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.6);
+}
+
+button {
+  padding: 12px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
+
+  background: var(--gold);
+  color: #333;
+  font-weight: 600;
 }
-.switch {
-  margin-top: 12px;
+
+button:hover {
+  transform: translateY(-2px);
 }
-.switch span {
-  color: #409eff;
+
+/* ===== 极简玻璃按钮 ===== */
+.btn {
+  padding: 12px;
+  border-radius: 12px;
   cursor: pointer;
+
+  font-weight: 500;
+  letter-spacing: 1px;
+
+  /* 关键：透明 + 边框 */
+  background: rgba(255,255,255,0.4);
+  border: 1px solid rgba(191,149,63,0.4);
+
+  color: #4a3728;
+
+  backdrop-filter: blur(10px);
+
+  transition: all 0.25s ease;
 }
+
+/* hover（轻微强化，不夸张） */
+.btn:hover {
+  background: rgba(255,255,255,0.6);
+  border-color: rgba(191,149,63,0.7);
+
+  transform: translateY(-1px);
+}
+
+/*细高光边*/
+.btn {
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.6),
+    0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* 点击 */
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* 禁用 */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hint {
+  margin-top: 20px;
+  font-size: 0.85rem;
+}
+
 .error {
-  color: #d9534f;
-  margin-top: 8px;
-}
-.subtitle {
-  color: #6b7280;
-  margin-bottom: 14px;
+  color: red;
+  margin-top: 10px;
 }
 </style>

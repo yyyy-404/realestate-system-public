@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>仪表盘 - Glassmorphism</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: white;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 20px;
+    }
+    h2 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .glass-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    .card strong {
+      font-size: 4rem;
+      display: block;
+      margin: 1rem 0;
+    }
+    .hint {
+      margin-top: 3rem;
+      text-align: center;
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>仪表盘</h2>
+    <div class="glass-grid">
+      <div class="card"><div>房源总数</div><strong>128</strong></div>
+      <div class="card"><div>收藏数</div><strong>347</strong></div>
+      <div class="card"><div>合同数</div><strong>56</strong></div>
+    </div>
+    <p class="hint">提示：这些数据可由后端接口提供，我可以继续对接。</p>
+  </div>
+</body>
+</html>

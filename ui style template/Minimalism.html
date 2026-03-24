@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>仪表盘 - Minimalism</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: white;
+      min-height: 100vh;
+      color: #111;
+    }
+    .container {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 4rem;
+      letter-spacing: -0.5px;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .item {
+      flex: 1;
+      min-width: 220px;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .item strong {
+      font-size: 3.8rem;
+      font-weight: 600;
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    .item div {
+      font-size: 1.1rem;
+      color: #6b7280;
+    }
+    .hint {
+      margin-top: 5rem;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>仪表盘</h2>
+    <div class="stats">
+      <div class="item">
+        <div>房源总数</div>
+        <strong>128</strong>
+      </div>
+      <div class="item">
+        <div>收藏数</div>
+        <strong>347</strong>
+      </div>
+      <div class="item">
+        <div>合同数</div>
+        <strong>56</strong>
+      </div>
+    </div>
+    <p class="hint">提示：这些数据可由后端接口提供，我可以继续对接。</p>
+  </div>
+</body>
+</html>

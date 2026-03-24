@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仪表盘 - Acid Brutalism</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+    body {
+      margin: 0;
+      background: #000;
+      color: #ff00ff;
+      font-family: 'VT323', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      position: relative;
+    }
+    h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 4rem;
+      text-align: left;
+      margin: 0 0 40px 0;
+      color: #00ffff;
+      text-shadow: 4px 4px #ff00ff, -4px -4px #ffff00;
+      transform: skew(-10deg);
+      letter-spacing: 6px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px 50px;
+      justify-items: start;
+    }
+    .card {
+      background: #111;
+      border: 6px solid #ffff00;
+      padding: 30px 40px;
+      text-align: left;
+      box-shadow: none;
+      transform: rotate(-3deg);
+      transition: transform 0.2s;
+    }
+    .card:nth-child(2) { transform: rotate(4deg); }
+    .card:nth-child(3) { transform: rotate(-5deg); }
+    .card:hover { transform: rotate(0deg) scale(1.05); }
+    .card strong {
+      font-size: 6rem;
+      color: #00ff00;
+      display: block;
+      margin: 10px 0;
+      text-shadow: 0 0 20px #00ff00;
+    }
+    .card div { font-size: 2.2rem; color: #ff00ff; }
+    .hint {
+      margin-top: 60px;
+      font-size: 1.8rem;
+      color: #ffff00;
+      text-align: right;
+      text-shadow: 3px 3px #ff00ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ACID DASH v666</h2>
+    <div class="cards">
+      <div class="card">
+        <div>房源总数</div>
+        <strong>128</strong>
+      </div>
+      <div class="card">
+        <div>收藏数</div>
+        <strong>347</strong>
+      </div>
+      <div class="card">
+        <div>合同数</div>
+        <strong>56</strong>
+      </div>
+    </div>
+    <p class="hint">数据已酸化... 别碰，不然崩溃</p>
+  </div>
+</body>
+</html>

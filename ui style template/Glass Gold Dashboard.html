@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Glass Gold Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+
+  /* 浅色 + 柔光背景 */
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.4), transparent),
+    linear-gradient(135deg, #f4f1e6, #e8e2d2);
+
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== 主面板（玻璃） ===== */
+.instrument-panel {
+  padding: 50px;
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.25);
+
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.5);
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.08),
+    inset 0 0 20px rgba(255,255,255,0.4);
+
+  text-align: center;
+}
+
+/* 标题 */
+h2 {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 40px;
+  letter-spacing: 4px;
+  color: #4a3728;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  margin: 10px auto 0;
+  background: var(--gold);
+}
+
+/* 卡片布局 */
+.cards {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+/* ===== 卡片（玻璃 + 金边） ===== */
+.card {
+  position: relative;
+  padding: 30px;
+  border-radius: 24px;
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid var(--glass-border);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.06),
+    inset 0 0 20px rgba(255,255,255,0.25);
+
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+
+/* 光扫（关键高级感） */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.5),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* hover */
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* label */
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8e795e;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+/* 数字 */
+.card strong {
+  display: block;
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: #2a2a2a;
+}
+
+/* hint */
+.hint {
+  margin-top: 30px;
+  font-size: 0.8rem;
+  color: #9e8e75;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="instrument-panel">
+
+  <h2>Records Dashboard</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="label">Total Estates</div>
+      <strong>128</strong>
+    </div>
+
+    <div class="card">
+      <div class="label">Bookmarked</div>
+      <strong>347</strong>
+    </div>
+
+    <div class="card">
+      <div class="label">Archives</div>
+      <strong>56</strong>
+    </div>
+
+  </div>
+
+  <div class="hint">
+    Real-time System Status
+  </div>
+
+</div>
+
+</body>
+</html>

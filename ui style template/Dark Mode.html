@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- 深色模式 (Dark Mode) 风格 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仪表盘 - 深色模式</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f0f14;
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 2.2rem;
+      text-align: center;
+    }
+    .cards {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card {
+      flex: 1;
+      min-width: 220px;
+      max-width: 300px;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 12px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      transition: all 0.2s;
+    }
+    .card:hover {
+      border-color: #58a6ff;
+      box-shadow: 0 0 0 4px rgba(88, 166, 255, 0.2);
+    }
+    .card strong {
+      font-size: 3rem;
+      color: #58a6ff; /* 霓虹蓝 */
+      display: block;
+      margin-top: 0.8rem;
+    }
+    .hint {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: #8b949e;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>仪表盘</h2>
+    <div class="cards">
+      <div class="card">
+        房源总数<br>
+        <strong>128</strong>
+      </div>
+      <div class="card">
+        收藏数<br>
+        <strong>347</strong>
+      </div>
+      <div class="card">
+        合同数<br>
+        <strong>56</strong>
+      </div>
+    </div>
+    <p class="hint">提示：这些数据可由后端接口提供，我可以继续对接。</p>
+  </div>
+</body>
+</html>

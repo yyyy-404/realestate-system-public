@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Glass Dashboard - Sky Blue</title>
+
+<style>
+:root {
+  --text-main: #ffffff;
+  --text-sub: rgba(255,255,255,0.8);
+}
+
+/* ===== 基础 ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+
+  /* 天蓝渐变背景 */
+  background: linear-gradient(135deg, #89c2ff, #b6e0ff);
+  background-attachment: fixed;
+
+  min-height: 100vh;
+  color: var(--text-main);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ===== 柔光层（增强玻璃感） ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.25), transparent 50%);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== noise层（高级质感关键） ===== */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.06;
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== 容器 ===== */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+/* ===== 标题 ===== */
+h2 {
+  font-size: 2.6rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 6px;
+  font-weight: 300;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 15px auto 0;
+  background: rgba(255,255,255,0.6);
+}
+
+/* ===== 网格 ===== */
+.glass-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* ===== 卡片（玻璃核心） ===== */
+.card {
+  position: relative;
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.35);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.1),
+    inset 0 0 20px rgba(255,255,255,0.3);
+
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+/* 光扫效果 */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.5),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* hover */
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* 点击 */
+.card:active {
+  transform: scale(0.98);
+}
+
+/* ===== header ===== */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--text-sub);
+}
+
+/* 趋势 */
+.trend {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.trend.up {
+  color: #16a34a;
+  background: rgba(22,163,74,0.15);
+}
+
+.trend.down {
+  color: #dc2626;
+  background: rgba(220,38,38,0.15);
+}
+
+/* ===== 数字 ===== */
+.card strong {
+  font-size: 4rem;
+  font-weight: 200;
+  letter-spacing: -2px;
+  display: block;
+  margin-top: 10px;
+}
+
+/* ===== 提示 ===== */
+.hint {
+  margin-top: 3rem;
+  text-align: center;
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .card strong {
+    font-size: 2.8rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>仪表盘</h2>
+
+  <div class="glass-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🏠 房源总数</span>
+        <span class="trend up">+12%</span>
+      </div>
+      <strong>128</strong>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">⭐ 收藏数</span>
+        <span class="trend up">+8%</span>
+      </div>
+      <strong>347</strong>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📄 合同数</span>
+        <span class="trend down">-3%</span>
+      </div>
+      <strong>56</strong>
+    </div>
+
+  </div>
+
+  <p class="hint">
+    Dashboard Real-time Status • Updated Just Now
+  </p>
+
+</div>
+
+</body>
+</html>

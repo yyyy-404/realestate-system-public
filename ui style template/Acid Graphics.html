@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- 经典酸性霓虹渐变 + 高饱和迷幻（最常见Acid Graphics） -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acid Dashboard - Neon Acid</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #ff00aa, #00ff9d, #ffea00, #00ffff);
+      background-size: 400% 400%;
+      animation: acidShift 12s ease infinite;
+      min-height: 100vh;
+      color: #000;
+      font-family: 'Courier New', monospace;
+    }
+    @keyframes acidShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container { max-width: 1000px; margin: 60px auto; padding: 20px; text-align: center; }
+    h2 {
+      font-size: 4.5rem;
+      margin-bottom: 2rem;
+      color: #000;
+      text-shadow: 0 0 30px #ff00aa, 0 0 60px #00ffff;
+      letter-spacing: 8px;
+    }
+    .cards { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+    .card {
+      flex: 1;
+      min-width: 280px;
+      padding: 2.5rem;
+      background: rgba(0,0,0,0.4);
+      border: 4px solid #ffff00;
+      border-radius: 0;
+      box-shadow: 0 0 40px #ff00aa;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s;
+    }
+    .card:hover { transform: scale(1.1) rotate(3deg); box-shadow: 0 0 80px #00ff9d; }
+    .card strong { font-size: 5.5rem; color: #00ffff; display: block; text-shadow: 0 0 25px #00ffff; }
+    .card div { font-size: 2rem; color: #ffea00; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ACID CORE</h2>
+    <div class="cards">
+      <div class="card"><div>房源总数</div><strong>128</strong></div>
+      <div class="card"><div>收藏数</div><strong>347</strong></div>
+      <div class="card"><div>合同数</div><strong>56</strong></div>
+    </div>
+  </div>
+</body>
+</html>

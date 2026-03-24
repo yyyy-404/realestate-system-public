@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- 六边形霓虹无限隧道 + 管道缠绕感 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro-Futurism - Hex Neon Tunnel</title>
+  <style>
+    body { margin:0; height:100vh; background:#0a001f; overflow:hidden; color:#aaffff; font-family:'Courier New', monospace; }
+    .tunnel { position:fixed; inset:0; background:linear-gradient(#000814, #001122); perspective:1000px; animation:tunnelHex 70s linear infinite; }
+    @keyframes tunnelHex { 0% { transform:translateZ(0) rotateX(0deg); } 100% { transform:translateZ(-2500px) rotateX(0.5deg); } }
+    .hex-grid { position:absolute; inset:0; background:repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 30deg, #00ffff22 30deg, #00ffff22 60deg); clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); transform:rotateX(60deg) translateZ(-600px); opacity:0.7; }
+    .pipe { position:absolute; width:100%; height:20px; background:linear-gradient(90deg, transparent, #ff00aa88, transparent); box-shadow:0 0 30px #ff00aa; animation:pipeFlow 8s linear infinite; }
+    .pipe:nth-child(1) { top:30%; animation-delay:0s; }
+    .pipe:nth-child(2) { top:60%; animation-delay:3s; }
+    @keyframes pipeFlow { 0% { transform:translateX(-100%); } 100% { transform:translateX(100%); } }
+    .content { position:relative; z-index:10; padding:80px 20px; text-align:center; }
+    h1 { font-size:4rem; text-shadow:0 0 40px #00ffff, 0 0 60px #ff00aa; letter-spacing:10px; }
+    .stats { display:flex; justify-content:center; gap:3rem; flex-wrap:wrap; margin-top:3rem; }
+    .stat { background:rgba(0,0,0,0.6); padding:2rem 3rem; border:2px solid #00ffff; border-radius:8px; backdrop-filter:blur(10px); min-width:220px; }
+    .stat strong { font-size:6rem; color:#00ffff; display:block; text-shadow:0 0 30px #00ffff; }
+  </style>
+</head>
+<body>
+  <div class="tunnel">
+    <div class="hex-grid"></div>
+    <div class="pipe"></div>
+    <div class="pipe"></div>
+  </div>
+  <div class="content">
+    <h1>HEX TUNNEL CORE</h1>
+    <div class="stats">
+      <div class="stat"><strong>128</strong> 房源单位</div>
+      <div class="stat"><strong>347</strong> 收藏记录</div>
+      <div class="stat"><strong>56</strong> 活跃合同</div>
+    </div>
+  </div>
+</body>
+</html>

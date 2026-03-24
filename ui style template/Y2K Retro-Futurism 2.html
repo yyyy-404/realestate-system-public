@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- Y2K 复古未来主义 (Y2K Retro-Futurism)，而且融合了大量的 赛博朋克 (Cyberpunk) 和 蒸汽波 (Vaporwave) 元素。 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仪表盘 - Y2K Retro-Futurism</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@500;700&family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #ff00aa, #00ffff, #ff69b4, #00bfff);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #fff;
+      text-shadow: 
+        0 0 10px #ff00ff,
+        0 0 20px #00ffff,
+        0 0 30px #ff69b4;
+      letter-spacing: 4px;
+      animation: neonFlicker 3s infinite alternate;
+    }
+
+    @keyframes neonFlicker {
+      0%, 100% { opacity: 1; text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff; }
+      50% { opacity: 0.92; text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffff; }
+    }
+
+    .cards {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 240px;
+      max-width: 320px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.4);
+      border: 3px solid #00ffff;
+      border-radius: 12px;
+      box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.6),
+        inset 0 0 15px rgba(255, 0, 170, 0.4);
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.08) translateY(-10px);
+      box-shadow: 
+        0 0 40px rgba(0, 255, 255, 0.9),
+        inset 0 0 25px rgba(255, 0, 170, 0.7);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,105,180,0.3) 0%, transparent 60%);
+      animation: pulse 8s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(20%, 20%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-20%, -20%) scale(1.3); opacity: 0.3; }
+      100% { transform: translate(20%, 20%) scale(1); opacity: 0.6; }
+    }
+
+    .card strong {
+      font-family: 'VT323', monospace;
+      font-size: 4.2rem;
+      display: block;
+      margin-top: 1rem;
+      color: #00ffff;
+      text-shadow: 
+        0 0 15px #00ffff,
+        0 0 30px #ff00ff;
+      letter-spacing: 2px;
+    }
+
+    .card span {
+      font-size: 1.3rem;
+      color: #ff69b4;
+      text-shadow: 0 0 8px #ff69b4;
+    }
+
+    .hint {
+      margin-top: 3rem;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      color: #ff00ff;
+      font-size: 1.1rem;
+      text-shadow: 0 0 10px #ff00ff;
+      letter-spacing: 2px;
+    }
+
+    /* 背景网格（复古未来感） */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(0, 255, 255, 0.08) 20px,
+        rgba(0, 255, 255, 0.08) 40px
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>仪表盘 2K6</h2>
+    <div class="cards">
+      <div class="card">
+        <span>房源总数</span><br>
+        <strong>128</strong>
+      </div>
+      <div class="card">
+        <span>收藏数</span><br>
+        <strong>347</strong>
+      </div>
+      <div class="card">
+        <span>合同数</span><br>
+        <strong>56</strong>
+      </div>
+    </div>
+    <p class="hint">>>> 数据来自未来接口... 随时 glitch 一下就更新了 <<<</p>
+  </div>
+</body>
+</html>

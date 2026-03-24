@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- 便当盒布局 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>仪表盘 - Bento Grid</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f8f9fa;
+      min-height: 100vh;
+      color: #111;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    }
+    .card.large {
+      grid-column: span 2;
+      grid-row: span 1;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 3rem;
+    }
+    .card strong {
+      font-size: 3.5rem;
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    .hint {
+      margin-top: 3rem;
+      text-align: center;
+      color: #6b7280;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>仪表盘</h2>
+    <div class="bento-grid">
+      <div class="card large">
+        <div>房源总数</div>
+        <strong>128</strong>
+      </div>
+      <div class="card">
+        <div>收藏数</div>
+        <strong>347</strong>
+      </div>
+      <div class="card">
+        <div>合同数</div>
+        <strong>56</strong>
+      </div>
+    </div>
+    <p class="hint">提示：这些数据可由后端接口提供，我可以继续对接。</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- 新拟物化 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仪表盘 - Neumorphism 2.0</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #e0e0e0;
+      min-height: 100vh;
+      color: #333;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      margin-bottom: 3rem;
+      color: #222;
+    }
+    .cards {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card {
+      flex: 1;
+      min-width: 260px;
+      max-width: 340px;
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
+      background: #e0e0e0;
+      box-shadow: 
+        12px 12px 24px #bebebe,
+        -12px -12px 24px #ffffff;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 
+        16px 16px 32px #bebebe,
+        -16px -16px 32px #ffffff;
+      transform: translateY(-8px);
+    }
+    .card strong {
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: #007aff;
+      display: block;
+      margin: 1rem 0;
+    }
+    .card div {
+      font-size: 1.4rem;
+      color: #555;
+    }
+    .hint {
+      margin-top: 4rem;
+      color: #777;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>仪表盘</h2>
+    <div class="cards">
+      <div class="card">
+        <div>房源总数</div>
+        <strong>128</strong>
+      </div>
+      <div class="card">
+        <div>收藏数</div>
+        <strong>347</strong>
+      </div>
+      <div class="card">
+        <div>合同数</div>
+        <strong>56</strong>
+      </div>
+    </div>
+    <p class="hint">数据实时更新中...</p>
+  </div>
+</body>
+</html>

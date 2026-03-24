@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acid Dashboard - Retro Collage</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    body { margin:0; background:#000; min-height:100vh; color:#ffff00; font-family:'Press Start 2P', cursive; }
+    .container { max-width:1100px; margin:50px auto; padding:20px; }
+    h2 { font-size:3.8rem; text-align:center; margin-bottom:3rem; color:#ff00ff; text-shadow:6px 6px #00ffff, -6px -6px #ffff00; transform:skew(-8deg); }
+    .cards { display:flex; gap:3rem; flex-wrap:wrap; justify-content:center; }
+    .card {
+      width:320px;
+      padding:2.5rem;
+      background:#111;
+      border:8px dashed #00ff9d;
+      position:relative;
+      transform:rotate(3deg);
+      box-shadow:0 0 50px #ff00aa;
+    }
+    .card:nth-child(2) { transform:rotate(-4deg); border-style:dotted; }
+    .card:nth-child(3) { transform:rotate(5deg); }
+    .card:hover { transform:rotate(0deg) scale(1.1); }
+    .card strong { font-size:5.5rem; color:#00ffff; display:block; text-shadow:0 0 30px #00ffff; }
+    .card::before { content:"☻"; position:absolute; top:-30px; right:-30px; font-size:6rem; color:#ffff00; opacity:0.7; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ACID COLLAGE</h2>
+    <div class="cards">
+      <div class="card"><strong>128</strong><br>房源总数</div>
+      <div class="card"><strong>347</strong><br>收藏数</div>
+      <div class="card"><strong>56</strong><br>合同数</div>
+    </div>
+  </div>
+</body>
+</html>

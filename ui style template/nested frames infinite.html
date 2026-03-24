@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- 方框嵌套无限隧道 + 冷黄/蓝冷调线框 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro-Futurism - Nested Frame Tunnel</title>
+  <style>
+    body { margin:0; height:100vh; background:#000814; overflow:hidden; color:#88ffff; }
+    .tunnel { position:fixed; inset:0; background:#000; perspective:900px; transform-style:preserve-3d; animation:nested 90s linear infinite; }
+    @keyframes nested { 0% { transform:rotateX(0deg) translateZ(0); } 100% { transform:rotateX(2deg) translateZ(-4000px); } }
+    .frame { position:absolute; inset:10%; border:3px solid #00aaff; box-shadow:0 0 50px #00aaff44; animation:framePulse 12s infinite; opacity:0.7; }
+    .frame:nth-child(2) { inset:20%; border-color:#ff88ff; box-shadow:0 0 50px #ff88ff44; animation-delay:3s; }
+    .frame:nth-child(3) { inset:30%; border-color:#ffff88; box-shadow:0 0 50px #ffff8844; animation-delay:6s; }
+    @keyframes framePulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.1); } }
+    .content { position:relative; z-index:10; padding-top:100px; text-align:center; }
+    h1 { font-size:4.5rem; text-shadow:0 0 50px #00ffff; letter-spacing:12px; }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:2rem; max-width:1200px; margin:4rem auto; padding:0 20px; }
+    .card { background:rgba(0,10,30,0.7); padding:3rem; border:1px solid #00ffff; backdrop-filter:blur(12px); box-shadow:0 0 60px #00ffff22; }
+    .card strong { font-size:7rem; color:#00ffff; text-shadow:0 0 40px #00ffff; }
+  </style>
+</head>
+<body>
+  <div class="tunnel">
+    <div class="frame"></div>
+    <div class="frame"></div>
+    <div class="frame"></div>
+  </div>
+  <div class="content">
+    <h1>FRAME TUNNEL ∞</h1>
+    <div class="cards">
+      <div class="card"><strong>128</strong><br>房源</div>
+      <div class="card"><strong>347</strong><br>收藏</div>
+      <div class="card"><strong>56</strong><br>合同</div>
+    </div>
+  </div>
+</body>
+</html>

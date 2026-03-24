@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- 新拟物化 (Neumorphism / Soft UI) 风格 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仪表盘 - 新拟物</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f5f7;
+      min-height: 100vh;
+      color: #1d1d1f;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    .cards {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card {
+      flex: 1;
+      min-width: 240px;
+      max-width: 320px;
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+      border-radius: 24px;
+      background: #f0f0f5;
+      box-shadow: 
+        10px 10px 20px rgba(0,0,0,0.08),
+        -10px -10px 20px rgba(255,255,255,0.9);
+      transition: all 0.25s ease;
+    }
+    .card:hover {
+      box-shadow: 
+        14px 14px 28px rgba(0,0,0,0.1),
+        -14px -14px 28px rgba(255,255,255,1);
+      transform: translateY(-8px);
+    }
+    .card strong {
+      font-size: 3rem;
+      color: #007aff;
+      display: block;
+      margin-top: 1rem;
+    }
+    .hint {
+      margin-top: 3rem;
+      text-align: center;
+      color: #6e6e73;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>仪表盘</h2>
+    <div class="cards">
+      <div class="card">
+        房源总数<br>
+        <strong>128</strong>
+      </div>
+      <div class="card">
+        收藏数<br>
+        <strong>347</strong>
+      </div>
+      <div class="card">
+        合同数<br>
+        <strong>56</strong>
+      </div>
+    </div>
+    <p class="hint">提示：这些数据可由后端接口提供，我可以继续对接。</p>
+  </div>
+</body>
+</html>

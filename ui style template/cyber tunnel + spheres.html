@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- 冷青网格无限隧道 + 漂浮金属线框球体 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro-Futurism Dashboard - Cyan Grid Tunnel</title>
+  <style>
+    body { margin:0; overflow:hidden; background:#001122; height:100vh; font-family:Arial, sans-serif; color:#00ffff; }
+    .tunnel { position:fixed; inset:0; background:radial-gradient(circle at 50% 50%, #000814 0%, #000 100%); perspective:800px; transform-style:preserve-3d; animation:tunnel 80s linear infinite; }
+    @keyframes tunnel { 0% { transform:translateZ(0) rotateX(0deg); } 100% { transform:translateZ(-3000px) rotateX(1deg); } }
+    .grid { position:absolute; inset:0; background:repeating-linear-gradient(90deg, transparent 0, transparent 60px, #00ffff11 60px, #00ffff11 62px), repeating-linear-gradient(0deg, transparent 0, transparent 60px, #00ffff11 60px, #00ffff11 62px); transform:rotateX(75deg) translateZ(-500px); opacity:0.6; animation:pulse 15s infinite; }
+    @keyframes pulse { 0%,100% {opacity:0.5;} 50% {opacity:0.9;} }
+    .sphere { position:absolute; width:140px; height:140px; border:2px solid #00ffff; border-radius:50%; box-shadow:0 0 40px #00ffff; background:radial-gradient(circle at 30% 30%, #ffffff33, transparent); pointer-events:none; animation:float 20s infinite; }
+    .sphere1 { top:20%; left:15%; animation-delay:0s; }
+    .sphere2 { top:50%; right:20%; animation-delay:5s; }
+    .sphere3 { bottom:25%; left:35%; animation-delay:10s; }
+    @keyframes float { 0%,100% {transform:translateY(0) rotate(0deg);} 50% {transform:translateY(-120px) rotate(360deg);} }
+    .content { position:relative; z-index:10; max-width:1000px; margin:60px auto; text-align:center; }
+    h1 { font-size:3.5rem; text-shadow:0 0 30px #00ffff; margin-bottom:2rem; letter-spacing:8px; }
+    .cards { display:flex; gap:2rem; flex-wrap:wrap; justify-content:center; }
+    .card { flex:1; min-width:280px; padding:2rem; background:rgba(0,20,50,0.5); border:1px solid #00aaff; border-radius:12px; backdrop-filter:blur(6px); box-shadow:0 0 40px #00ffff33; transition:all 0.4s; }
+    .card:hover { transform:scale(1.08); box-shadow:0 0 70px #00ffff88; }
+    .card strong { font-size:5rem; display:block; margin:1rem 0; color:#00ffff; text-shadow:0 0 25px #00ffff; }
+  </style>
+</head>
+<body>
+  <div class="tunnel">
+    <div class="grid"></div>
+    <div class="sphere sphere1"></div>
+    <div class="sphere sphere2"></div>
+    <div class="sphere sphere3"></div>
+  </div>
+  <div class="content">
+    <h1>CORE TUNNEL v∞</h1>
+    <div class="cards">
+      <div class="card"><strong>128</strong> 房源</div>
+      <div class="card"><strong>347</strong> 收藏</div>
+      <div class="card"><strong>56</strong> 合同</div>
+    </div>
+  </div>
+</body>
+</html>

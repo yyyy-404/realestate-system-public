@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>收藏列表界面</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <aside class="panel nav" data-userbox>
+        <h1>导航</h1>
+        <div class="menu">
+          <a href="./home.html">首页</a>
+          <a href="./properties.html">房源列表</a>
+          <a href="./publish.html">房源发布</a>
+          <a href="./contracts.html">合同列表</a>
+          <button type="button" onclick="RS.clearAuth(); location.href='./login.html'">退出登录</button>
+        </div>
+      </aside>
+      <main class="panel main">
+        <section class="hero panel">
+          <div>
+            <h2>收藏列表界面</h2>
+            <p>展示已收藏房源，可取消收藏，也可直接发起合同。</p>
+          </div>
+          <div class="actions">
+            <a class="btn" href="./properties.html">去选房源</a>
+          </div>
+        </section>
+
+        <section id="favoriteList" class="list"></section>
+      </main>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+  <script>RS.setupFavoritesPage();</script>
+</body>
+</html>

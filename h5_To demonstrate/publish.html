@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>房源发布界面</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <aside class="panel nav" data-userbox>
+        <h1>导航</h1>
+        <div class="menu">
+          <a href="./home.html">首页</a>
+          <a href="./properties.html">房源列表</a>
+          <a href="./favorites.html">收藏列表</a>
+          <a href="./contracts.html">合同列表</a>
+          <button type="button" onclick="RS.clearAuth(); location.href='./login.html'">退出登录</button>
+        </div>
+      </aside>
+      <main class="panel main">
+        <section class="hero panel">
+          <div>
+            <h2>房源发布界面</h2>
+            <p>卖家可填写房源标题、价格、位置、面积与描述，提交后进入房源列表。</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-secondary" href="./properties.html">返回列表</a>
+          </div>
+        </section>
+
+        <section class="card">
+          <form id="publishForm" class="form">
+            <input class="input" name="title" placeholder="房源标题" />
+            <input class="input" name="price" type="number" placeholder="房价（万元）" />
+            <input class="input" name="location" placeholder="房源位置" />
+            <input class="input" name="area" placeholder="房源面积（例如：98㎡）" />
+            <select class="select" name="status">
+              <option value="待发布">待发布</option>
+              <option value="在售">在售</option>
+            </select>
+            <textarea class="textarea" name="desc" placeholder="房源描述"></textarea>
+            <button class="btn" type="submit">发布房源</button>
+          </form>
+
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+  <script>RS.setupPropertyPublish();</script>
+</body>
+</html>

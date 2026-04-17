@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用户端登录页面</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="panel auth-panel">
+      <p class="brand">二手房交易系统</p>
+      <h1 class="title">LOGIN</h1>
+      <p class="subtitle">请输入账号与密码后进入系统首页</p>
+
+      <form id="loginForm" class="form">
+        <input class="input" name="username" type="text" placeholder="Username" />
+        <input class="input" name="password" type="password" placeholder="Password" />
+        <button class="btn" type="submit">登录</button>
+      </form>
+
+      <div class="hint">没有账号？<a href="./register.html">去注册</a></div>
+      <p class="error" data-error style="display:none"></p>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+  <script>RS.setupAuthLogin();</script>
+</body>
+</html>

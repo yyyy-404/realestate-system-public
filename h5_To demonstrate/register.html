@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用户端注册页面</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="panel auth-panel">
+      <p class="brand">二手房交易系统</p>
+      <h1 class="title">REGISTER</h1>
+      <p class="subtitle">注册后可直接回到登录页面</p>
+
+      <form id="registerForm" class="form">
+        <input class="input" name="username" type="text" placeholder="Username" />
+        <input class="input" name="password" type="password" placeholder="Password" />
+        <input class="input" name="confirmPassword" type="password" placeholder="Confirm Password" />
+        <div class="role-select">
+          <div class="role-item active" data-role="buyer">买家</div>
+          <div class="role-item" data-role="seller">卖家</div>
+
+        </div>
+        <input type="hidden" name="role" value="buyer" />
+        <button class="btn" type="submit">注册</button>
+      </form>
+
+      <div class="hint">已有账号？<a href="./login.html">去登录</a></div>
+      <p class="error" data-error style="display:none"></p>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+  <script>RS.setupAuthRegister();</script>
+</body>
+</html>

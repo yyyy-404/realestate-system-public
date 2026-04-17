@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>房源列表界面</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <aside class="panel nav" data-userbox>
+        <h1>导航</h1>
+        <div class="menu">
+          <a href="./home.html">首页</a>
+          <a href="./publish.html">房源发布</a>
+          <a href="./favorites.html">收藏列表</a>
+          <a href="./contracts.html">合同列表</a>
+          <button type="button" onclick="RS.clearAuth(); location.href='./login.html'">退出登录</button>
+        </div>
+      </aside>
+      <main class="panel main">
+        <section class="hero panel">
+          <div>
+            <h2>房源列表界面</h2>
+            <p>支持关键字筛选、状态筛选、价格筛选，并可直接收藏或发起合同。</p>
+          </div>
+          <div class="actions">
+            <a class="btn" href="./publish.html">发布房源</a>
+            <a class="btn btn-secondary" href="./favorites.html">查看收藏</a>
+          </div>
+        </section>
+
+        <div class="toolbar">
+          <input id="keyword" class="input" placeholder="搜索标题/地址/描述/房主" />
+          <select id="status" class="select">
+            <option value="">全部状态</option>
+            <option value="在售">在售</option>
+            <option value="待发布">待发布</option>
+          </select>
+          <select id="price" class="select">
+            <option value="">最高价格不限</option>
+            <option value="100">100 万以内</option>
+            <option value="150">150 万以内</option>
+            <option value="200">200 万以内</option>
+            <option value="300">300 万以内</option>
+          </select>
+        </div>
+
+        <section id="propertyList" class="list"></section>
+      </main>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+  <script>RS.setupListPage();</script>
+</body>
+</html>

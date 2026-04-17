@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>首页界面</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="page">
+    <div class="shell">
+
+      <!-- 左侧栏 -->
+      <aside class="sidebar">
+        <div class="logo">🏠 房产系统</div>
+        <!-- 用户信息区 -->
+          <div class="user-block">
+            <div class="avatar">👤</div>
+            <div class="username">你好，<span id="username"></span></div>
+
+            <!-- 提前放退出按钮 -->
+            <button class="logout-btn" onclick="RS.logout()">退出登录</button>
+          </div>
+          
+      </aside>
+
+      <!-- 主区域 -->
+      <main class="main">
+        <section class="hero panel">
+          <div>
+            <h2>首页</h2>
+          </div>
+        </section>
+
+        <!-- 功能入口 -->
+        <section class="grid" style="margin-top:16px">
+
+          <a href="./properties.html" class="card link-card">
+            <h3>房源列表</h3>
+            <p>浏览所有房源信息</p>
+            <span class="card-action">进入 →</span>
+          </a>
+
+          <a href="./publish.html" class="card link-card">
+            <h3>发布房源</h3>
+            <p>发布新的房产信息</p>
+            <span class="card-action">进入 →</span>
+          </a>
+
+          <a href="./favorites.html" class="card link-card">
+            <h3>收藏</h3>
+            <p>查看收藏的房源</p>
+            <span class="card-action">进入 →</span>
+          </a>
+
+          <a href="./contracts.html" class="card link-card">
+            <h3>合同</h3>
+            <p>查看与管理合同</p>
+            <span class="card-action">进入 →</span>
+          </a>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+
+  <script>
+    // 初始化用户
+    const user = JSON.parse(localStorage.getItem("rs_user") || "{}");
+    document.getElementById("username").innerText = user.username || "用户";
+
+    // 退出
+    function logout(){
+      localStorage.removeItem("rs_token");
+      localStorage.removeItem("rs_user");
+      location.href = "login.html";
+    }
+
+    // 页面初始化（防报错）
+    if (window.RS && RS.setupHome) {
+      RS.setupHome();
+    }
+  </script>
+
+</body>
+</html>

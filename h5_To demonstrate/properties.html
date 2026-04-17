@@ -36,7 +36,7 @@
           <select id="status" class="select">
             <option value="">全部状态</option>
             <option value="在售">在售</option>
-            <option value="待发布">待发布</option>
+            <option value="待售">待售</option>
           </select>
           <select id="price" class="select">
             <option value="">最高价格不限</option>
@@ -54,5 +54,26 @@
 
   <script src="./app.js"></script>
   <script>RS.setupListPage();</script>
+  <script>
+    function addFavorite(id) {
+    let token = localStorage.getItem("token");
+    if (!token) {
+        showToast("未登录无法收藏", "error");
+        return;
+    }
+
+    let favs = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+    if (favs.includes(id)) {
+        showToast("已收藏该房源", "info");
+        return;
+    }
+
+    favs.push(id);
+    localStorage.setItem("favorites", JSON.stringify(favs));
+
+    showToast("收藏成功", "success");
+}
+  </script>
 </body>
 </html>

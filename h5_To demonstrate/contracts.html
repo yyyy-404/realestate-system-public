@@ -37,5 +37,11 @@
 
   <script src="./app.js"></script>
   <script>RS.setupContractsPage();</script>
+  <script>if (!contractId) {
+    showToast("合同参数缺失", "error");
+    return;
+}
+
+showToast("合同创建成功", "success");</script>
 </body>
 </html>

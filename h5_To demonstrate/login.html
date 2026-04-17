@@ -6,6 +6,7 @@
   <title>用户端登录页面</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
   <main class="page">
     <section class="panel auth-panel">
@@ -20,11 +21,56 @@
       </form>
 
       <div class="hint">没有账号？<a href="./register.html">去注册</a></div>
-      <p class="error" data-error style="display:none"></p>
     </section>
   </main>
 
   <script src="./app.js"></script>
-  <script>RS.setupAuthLogin();</script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("loginForm");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const username = formData.get("username");
+        const password = formData.get("password");
+
+        // 1. 空值校验（论文测试点）
+        if (!username || !password) {
+          showToast("请输入完整信息", "error");
+          return;
+        }
+
+        // 2. 从本地模拟数据库读取用户
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+        const user = users.find(u => u.username === username);
+
+        // 3. 用户不存在
+        if (!user) {
+          showToast("用户不存在", "error");
+          return;
+        }
+
+        // 4. 密码错误
+        if (user.password !== password) {
+          showToast("用户名或密码错误", "error");
+          return;
+        }
+
+        // 5. 登录成功
+        showToast("登录成功", "success");
+
+        localStorage.setItem("token", "demo-token");
+        localStorage.setItem("currentUser", JSON.stringify(user));
+
+        setTimeout(() => {
+          window.location.href = "./home.html";
+        }, 1000);
+      });
+    });
+  </script>
 </body>
 </html>

@@ -645,3 +645,36 @@ img{max-width:100%;display:block}
     width:100%;
   }
 }
+
+/* ===== 全局提示组件 Toast ===== */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.success {
+  background: rgba(46, 204, 113, 0.9);
+}
+
+.toast.error {
+  background: rgba(231, 76, 60, 0.9);
+}
+
+.toast.info {
+  background: rgba(52, 152, 219, 0.9);
+}

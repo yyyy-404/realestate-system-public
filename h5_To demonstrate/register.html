@@ -6,6 +6,7 @@
   <title>用户端注册页面</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
   <main class="page">
     <section class="panel auth-panel">
@@ -17,21 +18,86 @@
         <input class="input" name="username" type="text" placeholder="Username" />
         <input class="input" name="password" type="password" placeholder="Password" />
         <input class="input" name="confirmPassword" type="password" placeholder="Confirm Password" />
+
         <div class="role-select">
           <div class="role-item active" data-role="buyer">买家</div>
           <div class="role-item" data-role="seller">卖家</div>
-
         </div>
+
         <input type="hidden" name="role" value="buyer" />
         <button class="btn" type="submit">注册</button>
       </form>
 
       <div class="hint">已有账号？<a href="./login.html">去登录</a></div>
-      <p class="error" data-error style="display:none"></p>
     </section>
   </main>
 
   <script src="./app.js"></script>
-  <script>RS.setupAuthRegister();</script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("registerForm");
+      const roleItems = document.querySelectorAll(".role-item");
+      const roleInput = document.querySelector("input[name='role']");
+
+      // 角色选择
+      roleItems.forEach(item => {
+        item.addEventListener("click", () => {
+          roleItems.forEach(i => i.classList.remove("active"));
+          item.classList.add("active");
+          roleInput.value = item.dataset.role;
+        });
+      });
+
+      // 注册逻辑
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const username = formData.get("username");
+        const password = formData.get("password");
+        const confirmPassword = formData.get("confirmPassword");
+        const role = formData.get("role");
+
+        // 1. 空值校验
+        if (!username || !password || !confirmPassword) {
+          showToast("请填写完整信息", "error");
+          return;
+        }
+
+        // 2. 密码一致性校验
+        if (password !== confirmPassword) {
+          showToast("两次密码不一致", "error");
+          return;
+        }
+
+        // 3. 本地模拟用户库
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+        // 4. 重复用户校验（论文第6章关键测试点）
+        const exists = users.find(u => u.username === username);
+        if (exists) {
+          showToast("用户名已存在", "error");
+          return;
+        }
+
+        // 5. 写入用户
+        users.push({
+          username,
+          password,
+          role
+        });
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+        // 6. 成功提示 + 跳转
+        showToast("注册成功，即将跳转登录页", "success");
+
+        setTimeout(() => {
+          window.location.href = "./login.html";
+        }, 1200);
+      });
+    });
+  </script>
 </body>
 </html>

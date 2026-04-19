@@ -1,0 +1,27 @@
+<!doctype html>
+
+<html>
+<body>
+<script>
+(function () {
+
+  localStorage.setItem("rs_user", JSON.stringify({
+    username: "user1",
+    role: "buyer"
+  }));
+  localStorage.setItem("rs_token", "demo-token");
+
+  const properties = [
+    { id: 1001, title: "精装两居室", price: 120, location: "北京朝阳", area: "89㎡", status: "在售", desc: "交通便利，拎包入住", owner: "张三" },
+    { id: 1002, title: "学区房三居", price: 180, location: "上海浦东", area: "110㎡", status: "在售", desc: "优质学区，环境安静", owner: "李四" }
+  ];
+
+  localStorage.setItem("rs_properties", JSON.stringify(properties));
+  localStorage.setItem("rs_favorites", JSON.stringify([1001]));
+  localStorage.setItem("rs_contracts", JSON.stringify([]));
+
+  alert("初始化完成");
+})();
+</script>
+</body>
+</html>

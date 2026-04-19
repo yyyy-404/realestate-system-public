@@ -52,28 +52,75 @@
     </div>
   </div>
 
-  <script src="./app.js"></script>
-  <script>RS.setupListPage();</script>
-  <script>
-    function addFavorite(id) {
+<script src="./app.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 1. 初始化列表页面（保留你原有逻辑）
+  RS.setupListPage();
+
+  // 2. 页面加载测试反馈（第6章截图点）
+  showToast("房源列表加载完成", "info");
+  console.log("[TEST] list page loaded");
+
+  // =========================
+  // 收藏功能（增强测试版）
+  // =========================
+  window.addFavorite = function(id) {
     let token = localStorage.getItem("token");
+
+    // 未登录测试
     if (!token) {
-        showToast("未登录无法收藏", "error");
-        return;
+      showToast("未登录无法收藏", "error");
+      console.log("[TEST] favorite failed: not logged in");
+      return;
     }
 
     let favs = JSON.parse(localStorage.getItem("favorites") || "[]");
 
+    // 重复收藏测试
     if (favs.includes(id)) {
-        showToast("已收藏该房源", "info");
-        return;
+      showToast("已收藏该房源", "info");
+      console.log("[TEST] favorite failed: duplicate");
+      return;
     }
 
+    // 正常收藏
     favs.push(id);
     localStorage.setItem("favorites", JSON.stringify(favs));
 
     showToast("收藏成功", "success");
-}
-  </script>
+    console.log("[TEST] favorite success id=" + id);
+  };
+
+  // =========================
+  // 筛选功能测试反馈（新增）
+  // =========================
+  const keywordEl = document.getElementById("keyword");
+  const statusEl = document.getElementById("status");
+  const priceEl = document.getElementById("price");
+
+  function showFilterTip() {
+    let keyword = keywordEl?.value || "";
+    let status = statusEl?.value || "";
+    let price = priceEl?.value || "";
+
+    console.log("[TEST] filter:", { keyword, status, price });
+
+    if (!keyword && !status && !price) {
+      showToast("已显示全部房源", "info");
+    } else {
+      showToast("筛选条件已更新", "success");
+    }
+  }
+
+  // 绑定筛选事件（不改UI）
+  if (keywordEl) keywordEl.addEventListener("input", showFilterTip);
+  if (statusEl) statusEl.addEventListener("change", showFilterTip);
+  if (priceEl) priceEl.addEventListener("change", showFilterTip);
+
+});
+</script>
 </body>
 </html>

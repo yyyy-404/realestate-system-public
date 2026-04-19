@@ -67,23 +67,18 @@
   </div>
 
   <script src="./app.js"></script>
-
   <script>
-    // 初始化用户
-    const user = JSON.parse(localStorage.getItem("rs_user") || "{}");
-    document.getElementById("username").innerText = user.username || "用户";
-
-    // 退出
-    function logout(){
-      localStorage.removeItem("rs_token");
-      localStorage.removeItem("rs_user");
-      location.href = "login.html";
-    }
-
-    // 页面初始化（防报错）
-    if (window.RS && RS.setupHome) {
+    document.addEventListener("DOMContentLoaded", () => {
       RS.setupHome();
-    }
+
+      const logoutBtn = document.querySelector(".logout-btn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          RS.clearAuth();
+          location.href = "./login.html";
+        });
+      }
+    });
   </script>
 
 </body>

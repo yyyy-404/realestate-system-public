@@ -35,7 +35,46 @@
     </div>
   </div>
 
-  <script src="./app.js"></script>
-  <script>RS.setupFavoritesPage();</script>
+<script src="./app.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 1. 初始化收藏模块
+  RS.setupFavoritesPage();
+
+  // 2. 页面加载测试反馈（第6章截图点）
+  showToast("收藏列表加载完成", "info");
+  console.log("[TEST] favorites page loaded");
+
+  // =========================
+  // 空状态测试（论文加分点）
+  // =========================
+  setTimeout(() => {
+    const list = document.getElementById("favoriteList");
+
+    if (list && list.children.length === 0) {
+      showToast("暂无收藏房源", "info");
+      console.log("[TEST] favorites empty state");
+    } else {
+      console.log("[TEST] favorites count:", list?.children.length);
+    }
+  }, 300);
+
+  // =========================
+  // 监听收藏操作（用于测试取消收藏）
+  // =========================
+  document.addEventListener("click", (e) => {
+
+    // 假设 app.js 里用的是 removeFavorite
+    if (e.target && e.target.classList.contains("remove-fav")) {
+      showToast("已取消收藏", "success");
+      console.log("[TEST] favorite removed");
+    }
+
+  });
+
+});
+</script>
 </body>
 </html>

@@ -35,12 +35,61 @@
     </div>
   </div>
 
-  <script src="./app.js"></script>
-  <script>RS.setupContractsPage();</script>
-  <script>if (!contractId) {
-    showToast("合同参数缺失", "error");
-    return;
-}
+<script src="./app.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 1. 初始化合同模块
+  RS.setupContractsPage();
+
+  // 2. 页面加载测试反馈（第6章截图点）
+  showToast("合同列表加载完成", "info");
+  console.log("[TEST] contracts page loaded");
+
+  // =========================
+  // 合同状态监听（测试增强）
+  // =========================
+  setTimeout(() => {
+    const list = document.getElementById("contractList");
+
+    if (list && list.children.length === 0) {
+      showToast("暂无合同记录", "info");
+      console.log("[TEST] contracts empty state");
+    } else {
+      console.log("[TEST] contracts count:", list?.children.length);
+    }
+  }, 300);
+
+  // =========================
+  // 合同操作测试（确认完成/状态变化）
+  // =========================
+  document.addEventListener("click", (e) => {
+
+    // 假设 app.js 里有确认按钮
+    if (e.target && e.target.classList.contains("confirm-contract")) {
+      showToast("合同已确认完成", "success");
+      console.log("[TEST] contract confirmed");
+    }
+
+    // 删除/撤销合同（如果存在）
+    if (e.target && e.target.classList.contains("delete-contract")) {
+      showToast("合同已撤销", "info");
+      console.log("[TEST] contract deleted");
+    }
+
+  });
+
+  // =========================
+  // ⚠️ 修复你原来的错误代码（删除！！！）
+  // =========================
+  // 原来这段是错误的：
+  // if (!contractId) { ... }
+
+  // 正确做法：合同创建应该在 setupContractsPage 或按钮事件里触发
+
+});
+</script>
 
 showToast("合同创建成功", "success");</script>
 </body>

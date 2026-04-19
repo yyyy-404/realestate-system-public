@@ -19,6 +19,7 @@
           <button type="button" onclick="RS.clearAuth(); location.href='./login.html'">退出登录</button>
         </div>
       </aside>
+      
       <main class="panel main">
         <section class="hero panel">
           <div>
@@ -32,32 +33,28 @@
 
         <section class="card">
           <form id="publishForm" class="form">
-            <input class="input" name="title" placeholder="房源标题" />
-            <input class="input" name="price" type="number" placeholder="房价（万元）" />
-            <input class="input" name="location" placeholder="房源位置" />
-            <input class="input" name="area" placeholder="房源面积（例如：98㎡）" />
-            <select class="select" name="status">
+            <input class="input" name="title" placeholder="房源标题" required />
+            <input class="input" name="price" type="number" placeholder="房价（万元）" required min="0" />
+            <input class="input" name="location" placeholder="房源位置" required />
+            <input class="input" name="area" placeholder="房源面积（例如：98㎡）" required />
+            <select class="select" name="status" required>
               <option value="待售">待售</option>
               <option value="在售">在售</option>
             </select>
-            <textarea class="textarea" name="desc" placeholder="房源描述"></textarea>
+            <textarea class="textarea" name="desc" placeholder="房源描述" required></textarea>
             <button class="btn" type="submit">发布房源</button>
           </form>
-
         </section>
       </main>
     </div>
   </div>
 
   <script src="./app.js"></script>
-  <script>RS.setupPropertyPublish();</script>
   <script>
-    if (!title || !price) {
-    showToast("标题或价格不能为空", "error");
-    return;
-}
-
-showToast("发布成功", "success");
+    document.addEventListener("DOMContentLoaded", () => {
+      RS.setupPropertyPublish();
+      console.log("[TEST] publish page loaded");
+    });
   </script>
 </body>
 </html>
